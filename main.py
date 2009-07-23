@@ -12,13 +12,10 @@ def getMPDStatus():
     songtitle = cs['title']                       # If it does set songtitle to the id3 title
   elif 'file' in cs:                              # If it doesn't have a title use the filename
     songtitle = cs['file']                        # Set songtitle to the filename
+  songartist = cs['artist']                      # Set songartist if the song has one
+  songalbum = cs['album']                        # Set the songalbum if the song has one
 
-  songartist = " by "
-  songartist += cs['artist']                      # Set songartist if the song has one
-
-  songalbum = " from "                          
-  songalbum += cs['album']                        # Set the songalbum if the song has one
-  return songtitle + songartist + songalbum
+  return '%s by %s from %s' % (songtitle, songartist, songalbum)
 
 def getMPDLyrics():
   lyrics = subprocess.Popen("lyricsdownloader", stdout=subprocess.PIPE).communicate()  #get lyrics
