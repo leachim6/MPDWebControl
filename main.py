@@ -24,6 +24,12 @@ def getMPDLyrics():
   else: 
     return "Error, please restart MPD" #We no got lyrics
   
+def getMPDTime():
+    client = mpd.MPDClient()                        # Init MPD Client
+    client.connect("localhost", 6600)               # Connect to local MPD Server
+
+    time = client.status()["time"]
+    return time
 
 """
 Here is where the web part starts
@@ -63,7 +69,8 @@ urls = (
     '/', 'homepage',
     '/control/(.*)', 'control',
     '/lyrics', 'lyrics',
-    '/title', 'title'
+    '/title', 'title',
+    '/time', 'time',
 )
 app = web.application(urls, globals())
 
@@ -90,6 +97,11 @@ class title:
   def GET(self):
     titledata = getMPDStatus()
     return titledata
+
+class time:
+  def GET(self):
+    timedata = getMPDTime()
+    return timedata
 
 if __name__ == "__main__":
     app.run()
