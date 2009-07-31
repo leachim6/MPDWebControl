@@ -1,0 +1,23 @@
+ <html>
+   <head>
+      <title></title>
+      <link rel="stylesheet" href="/static/style.css" />
+      <script src="/static/jquery.js"></script>
+      <script src="/static/cmds.js"></script>
+   </head>
+   <body>
+   <div id="control-bar">
+     <a href="#" onClick="$.get('/control/toggle');">Play/Pause</a> | 
+     <a href="#" onClick="$.get('/control/next');songchange();">Next</a> |
+     <a href="#" onClick="$.get('/control/prev');songchange();">Prev</a>
+   </div>
+    <div id="title">
+      Now Playing: <strong id="titlehere">
+        
+      </strong>
+      </div>
+      <pre>
+     <div id="lyrics"></div>
+     </pre>
+   </body>
+ </html>

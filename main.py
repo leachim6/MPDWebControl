@@ -2,6 +2,7 @@
 import mpd
 import subprocess
 import web
+from web.contrib.template import render_jinja
 
 def getMPDStatus():
   client = mpd.MPDClient()                        # Init MPD Client
@@ -37,34 +38,7 @@ Here is where the web part starts
 
 ################  WEB #######################
 ##############################################
-html = """
- <html>
-   <head>
-      <title></title>
-      <link rel="stylesheet" href="/static/style.css" />
-      <script src="/static/jquery.js"></script>
-      <script src="/static/cmds.js"></script>
-   </head>
-   <body>
-   <div id="control-bar">
-     <a href="#" onClick="$.get('/control/toggle');">Play/Pause</a> | 
-     <a href="#" onClick="$.get('/control/next');songchange();">Next</a> |
-     <a href="#" onClick="$.get('/control/prev');songchange();">Prev</a>
-   </div>
-    <div id="title">
-      Now Playing: <strong id="titlehere">
-        
-      </strong>
-      </div>
-      <pre>
-     <div id="lyrics"></div>
-     </pre>
-   </body>
- </html>
-""" 
-
-
-
+ 
 urls = (
     '/', 'homepage',
     '/control/(.*)', 'control',
@@ -74,9 +48,14 @@ urls = (
 )
 app = web.application(urls, globals())
 
+render = render_jinja(
+    'templates',
+     encoding = 'utf-8',
+     )
+
 class homepage:
   def GET(self):
-    return html
+    return render.hello()
     
 class control:        
     def GET(self, cmd):
