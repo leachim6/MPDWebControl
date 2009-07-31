@@ -2,6 +2,7 @@
 import mpd
 import subprocess
 import web
+import socket
 from web.contrib.template import render_jinja
 
 def getMPDStatus():
@@ -54,8 +55,8 @@ render = render_jinja(
      )
 
 class homepage:
-  def GET(self):
-    return render.hello()
+  def GET(self, hostname=socket.gethostname()):
+    return render.hello(hostname=hostname)
     
 class control:        
     def GET(self, cmd):
